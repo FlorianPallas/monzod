@@ -1,10 +1,32 @@
 {
   "name": "monzod",
+  "description": "Strongly typed MongoDB using Zod",
   "version": "0.1.0",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "zod",
+    "mongodb",
+    "typescript"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FlorianPallas/monzod.git"
+  },
+  "author": {
+    "name": "Florian Pallas",
+    "email": "mail@fpallas.com",
+    "url": "https://fpallas.com"
+  },
+  "bugs": {
+    "url": "https://github.com/FlorianPallas/monzod/issues"
+  },
+  "homepage": "https://github.com/FlorianPallas/monzod",
   "scripts": {
     "lint": "tsc",
     "build": "tsup src/index.ts --format cjs,esm --dts",
