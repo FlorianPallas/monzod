@@ -121,6 +121,22 @@ describe("object mapping", () => {
       idString()._def.typeName
     );
   });
+
+  test("should parse corresponding dto", () => {
+    const entity = z.object({
+      _id: id(),
+      name: z.string(),
+      groupId: id(),
+    });
+
+    const dto = {
+      id: "507f191e810c19729de860ea",
+      name: "John",
+      groupId: "507f191e810c19729de860ea",
+    }
+
+    expect(mapSchema(entity).safeParse(dto))
+  })
 });
 
 describe("entity mapping", () => {
@@ -137,4 +153,20 @@ describe("entity mapping", () => {
       groupId: entity.groupId.toHexString(),
     });
   });
+
+  test("should be parsable by corresponding schema", () => {
+    const entity = {
+      _id: new ObjectId("507f191e810c19729de860ea"),
+      name: "John",
+      groupId: new ObjectId("507f191e810c19729de860ea"),
+    }
+
+    const schema = z.object({
+      id: idString(),
+      name: z.string(),
+      groupId: idString(),
+    });
+
+    expect(schema.parse(mapEntity(entity)))
+  })
 });
