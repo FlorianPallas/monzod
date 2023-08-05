@@ -22,7 +22,7 @@ jobs:
       - run: pnpm run test
       - uses: changesets/action@v1
         with:
-          publish: pnpm publish
+          publish: pnpm release
           commit: "release package"
           title: "Release package"
         env:
