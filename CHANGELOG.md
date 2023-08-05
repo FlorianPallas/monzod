@@ -1,5 +1,11 @@
 # monzod
 
+## 0.1.2
+
+### Patch Changes
+
+- 13fe5ad: rename publish script to rename to prevent publishing before the package is built.
+
 ## 0.1.1
 
 ### Patch Changes
