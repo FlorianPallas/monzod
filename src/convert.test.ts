@@ -1,3 +1,4 @@
+import { describe, test, expect } from "vitest";
 import { z } from "zod";
 import { ObjectId } from "mongodb";
 import {
@@ -132,10 +133,10 @@ describe("object mapping", () => {
       id: "507f191e810c19729de860ea",
       name: "John",
       groupId: "507f191e810c19729de860ea",
-    }
+    };
 
-    expect(mapSchema(entity).safeParse(dto))
-  })
+    expect(mapSchema(entity).safeParse(dto));
+  });
 });
 
 describe("entity mapping", () => {
@@ -158,7 +159,7 @@ describe("entity mapping", () => {
       _id: new ObjectId("507f191e810c19729de860ea"),
       name: "John",
       groupId: new ObjectId("507f191e810c19729de860ea"),
-    }
+    };
 
     const schema = z.object({
       id: idString(),
@@ -166,6 +167,6 @@ describe("entity mapping", () => {
       groupId: idString(),
     });
 
-    expect(schema.parse(mapEntity(entity)))
-  })
+    expect(schema.parse(mapEntity(entity)));
+  });
 });
