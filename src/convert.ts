@@ -1,4 +1,4 @@
-import { ZodRawShape, z } from "zod";
+import { ZodFirstPartyTypeKind, ZodRawShape, z } from "zod";
 import { ObjectId } from "mongodb";
 import { mz } from ".";
 
@@ -14,7 +14,9 @@ type MapType<TSchema extends z.ZodType> = z.infer<TSchema> extends ObjectId
   : TSchema;
 
 export const mapType = <TSchema extends z.ZodType>(value: TSchema) =>
-  (value.safeParse(OBJECT_ID).success
+  ("typeName" in value._def &&
+  value._def.typeName === ZodFirstPartyTypeKind.ZodEffects &&
+  value.safeParse(OBJECT_ID).success
     ? mz.idString()
     : value) as MapType<TSchema>;
 
@@ -67,8 +69,9 @@ export const mapShape = <TShape extends z.ZodRawShape>(shape: TShape) => {
  * @param object the schema to convert
  * @returns the converted schema
  */
-export const mapSchema = <TShape extends ZodRawShape>(object: z.ZodObject<TShape>) =>
-  z.object(mapShape<TShape>(object.shape));
+export const mapSchema = <TShape extends ZodRawShape>(
+  object: z.ZodObject<TShape>
+) => z.object(mapShape<TShape>(object.shape));
 
 /**
  * Converts an entity to an object with the same keys, but with the following changes:

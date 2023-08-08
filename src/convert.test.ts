@@ -59,13 +59,12 @@ describe("type mapping", () => {
     expect((mapType(z.null()) as any)._def.typeName).toBe(
       z.null()._def.typeName
     );
-    // TODO: fix these cases
-    // expect((mapType(z.undefined()) as any)._def.typeName).toBe(
-    //   z.undefined()._def.typeName
-    // );
-    // expect((mapType(z.object({})) as any)._def.typeName).toBe(
-    //   z.object({})._def.typeName
-    // );
+    expect((mapType(z.undefined()) as any)._def.typeName).toBe(
+      z.undefined()._def.typeName
+    );
+    expect((mapType(z.object({})) as any)._def.typeName).toBe(
+      z.object({})._def.typeName
+    );
     expect((mapType(z.array(z.string())) as any)._def.typeName).toBe(
       z.array(z.string())._def.typeName
     );
