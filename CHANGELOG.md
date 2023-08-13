@@ -1,5 +1,16 @@
 # monzod
 
+## 0.3.0
+
+### Minor Changes
+
+- f9e55ab: add bson schema support for zod nullable and null types
+- ee070c4: add bson schema support for zod dates
+- 1004f95: add bson schema support for zod enums
+- 4a3088b: add bson schema support for zod numbers
+- 4636976: add bson schema support for zod array, tuple and set types
+- 437fa92: add bson schema support for zod booleans
+
 ## 0.2.0
 
 ### Minor Changes
