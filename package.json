@@ -1,6 +1,6 @@
 {
   "name": "monzod",
-  "description": "Strongly typed MongoDB using Zod",
+  "description": "Single Source of Truth & Database Layer Validation for MongoDB powered by Zod",
   "version": "0.1.2",
   "license": "MIT",
   "main": "dist/index.js",
@@ -12,7 +12,11 @@
   "keywords": [
     "zod",
     "mongodb",
-    "typescript"
+    "validate",
+    "convert",
+    "json",
+    "bson",
+    "schema"
   ],
   "repository": {
     "type": "git",
