@@ -1,5 +1,6 @@
 import {
   ZodFirstPartyTypeKind,
+  ZodNumber,
   ZodObject,
   ZodRawShape,
   ZodString,
@@ -16,6 +17,8 @@ export const bsonSchema = (type: ZodType): Converters.BSONSchema => {
       return Converters.objectId(type as MonzodObjectId);
     case ZodFirstPartyTypeKind.ZodString:
       return Converters.string(type as ZodString);
+    case ZodFirstPartyTypeKind.ZodNumber:
+      return Converters.number(type as ZodNumber);
     case ZodFirstPartyTypeKind.ZodObject:
       return Converters.object(type as ZodObject<ZodRawShape>);
     case ZodFirstPartyTypeKind.ZodOptional:

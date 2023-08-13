@@ -131,7 +131,7 @@ const bookCollection = db.collection<Book>("books", {
 ##### Zod
 
 - [x] String
-- [ ] Number
+- [x] Number
 - [ ] BigInt
 - [ ] Boolean
 - [ ] Date
