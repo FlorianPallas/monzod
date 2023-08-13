@@ -1,7 +1,7 @@
 {
   "name": "monzod",
   "description": "Single Source of Truth & Database Layer Validation for MongoDB powered by Zod",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
