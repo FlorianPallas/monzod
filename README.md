@@ -169,7 +169,7 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 - [x] Set
 - [ ] Function
 - [ ] Literal
-- [ ] Enum
+- [x] Enum
 - [ ] NativeEnum
 
 ###### Wrappers

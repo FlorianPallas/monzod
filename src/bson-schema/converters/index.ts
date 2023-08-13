@@ -8,9 +8,11 @@ export { convertTuple } from "./tuple";
 export { convertSet } from "./set";
 export { convertNullable, NullableBSONSchema } from "./nullable";
 export { convertNull, NullBSONSchema } from "./null";
+export { convertEnum, EnumBSONSchema } from "./enum";
 
 import { ArrayBSONSchema } from "./array";
 import { BoolBSONSchema } from "./bool";
+import { EnumBSONSchema } from "./enum";
 import { NullBSONSchema } from "./null";
 import { NullableBSONSchema } from "./nullable";
 import { NumberBSONSchema } from "./number";
@@ -26,6 +28,7 @@ export type BSONSchema =
   | BoolBSONSchema
   | ArrayBSONSchema
   | NullBSONSchema
-  | NullableBSONSchema;
+  | NullableBSONSchema
+  | EnumBSONSchema;
 
 export type Converter<T, D> = (type: T) => D;
