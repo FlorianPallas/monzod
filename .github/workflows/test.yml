@@ -17,7 +17,8 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
-      - run: pnpm run test:coverage
+      - run: pnpm run test -- --coverage
+      - run: pnpm run test:e2e
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
