@@ -17,7 +17,10 @@ jobs:
           cache: "pnpm"
       - run: pnpm install --frozen-lockfile
       - run: pnpm run lint
-      - run: pnpm run test -- --coverage
+      - run: pnpm run test --coverage
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
       - run: pnpm run test:e2e
         env:
           VITE_MONGODB_URI: ${{ secrets.VITE_MONGODB_URI }}
