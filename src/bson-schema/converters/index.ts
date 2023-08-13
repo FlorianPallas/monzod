@@ -1,14 +1,18 @@
-export { object, ObjectBSONSchema } from "./object";
-export { string, StringBSONSchema } from "./string";
-export { objectId, ObjectIdBSONSchema } from "./objectId";
-export { number, NumberBSONSchema } from "./number";
-export { bool, BoolBSONSchema } from "./bool";
-export { array, ArrayBSONSchema } from "./array";
-export { tuple } from "./tuple";
-export { set } from "./set";
+export { convertObject, ObjectBSONSchema } from "./object";
+export { convertString, StringBSONSchema } from "./string";
+export { convertObjectId, ObjectIdBSONSchema } from "./objectId";
+export { convertNumber, NumberBSONSchema } from "./number";
+export { convertBool, BoolBSONSchema } from "./bool";
+export { convertArray, ArrayBSONSchema } from "./array";
+export { convertTuple } from "./tuple";
+export { convertSet } from "./set";
+export { convertNullable, NullableBSONSchema } from "./nullable";
+export { convertNull, NullBSONSchema } from "./null";
 
 import { ArrayBSONSchema } from "./array";
 import { BoolBSONSchema } from "./bool";
+import { NullBSONSchema } from "./null";
+import { NullableBSONSchema } from "./nullable";
 import { NumberBSONSchema } from "./number";
 import { ObjectBSONSchema } from "./object";
 import { ObjectIdBSONSchema } from "./objectId";
@@ -20,6 +24,8 @@ export type BSONSchema =
   | ObjectIdBSONSchema
   | NumberBSONSchema
   | BoolBSONSchema
-  | ArrayBSONSchema;
+  | ArrayBSONSchema
+  | NullBSONSchema
+  | NullableBSONSchema;
 
 export type Converter<T, D> = (type: T) => D;

@@ -2,7 +2,7 @@ import { ZodTuple, ZodTypeAny } from "zod";
 import { ArrayBSONSchema, Converter } from ".";
 import { bsonSchema } from "..";
 
-export const tuple: Converter<
+export const convertTuple: Converter<
   ZodTuple<[] | [ZodTypeAny, ...ZodTypeAny[]]>,
   ArrayBSONSchema
 > = (type) => ({

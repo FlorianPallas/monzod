@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { z } from "zod";
-import { tuple } from ".";
+import { convertTuple } from ".";
 
 describe("zod array converter", () => {
   test("tuple", () => {
     const schema = z.tuple([z.string(), z.number()]);
-    const bsonSchema = tuple(schema);
+    const bsonSchema = convertTuple(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: [{ bsonType: "string" }, { bsonType: "double" }],
@@ -17,7 +17,7 @@ describe("zod array converter", () => {
 
   test("empty tuple", () => {
     const schema = z.tuple([]);
-    const bsonSchema = tuple(schema);
+    const bsonSchema = convertTuple(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: [],

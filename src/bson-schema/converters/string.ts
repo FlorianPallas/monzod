@@ -8,7 +8,7 @@ export interface StringBSONSchema {
   pattern?: string;
 }
 
-export const string: Converter<ZodString, StringBSONSchema> = (type) => {
+export const convertString: Converter<ZodString, StringBSONSchema> = (type) => {
   const schema: StringBSONSchema = {
     bsonType: "string",
   };

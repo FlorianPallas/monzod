@@ -1,30 +1,18 @@
-import { ZodType, ZodFirstPartyTypeKind, ZodOptional } from "zod";
-import { bsonSchema } from ".";
+import { ZodType, ZodFirstPartyTypeKind, ZodOptional, ZodNullable } from "zod";
 import { getKind } from "../types";
-import { BSONSchema } from "./converters";
 
-export type UnwrapResult = {
-  schema: BSONSchema;
-  modifiers: UnwrapModifiers;
+export const unwrapOptional = (type: ZodType) => {
+  const isOptional = getKind(type) === ZodFirstPartyTypeKind.ZodOptional;
+  return {
+    type: isOptional ? (type as ZodOptional<ZodType>).unwrap() : type,
+    isOptional,
+  };
 };
 
-export type UnwrapModifiers = {
-  isOptional: boolean;
-};
-
-export const unwrap = (
-  type: ZodType,
-  modifiers: UnwrapModifiers = {
-    isOptional: false,
-  }
-): UnwrapResult => {
-  switch (getKind(type)) {
-    case ZodFirstPartyTypeKind.ZodOptional:
-      return unwrap((type as ZodOptional<ZodType>).unwrap(), {
-        ...modifiers,
-        isOptional: true,
-      });
-    default:
-      return { schema: bsonSchema(type), modifiers };
-  }
+export const unwrapNullable = (type: ZodType) => {
+  const isNullable = getKind(type) === ZodFirstPartyTypeKind.ZodNullable;
+  return {
+    type: isNullable ? (type as ZodNullable<ZodType>).unwrap() : type,
+    isNullable,
+  };
 };

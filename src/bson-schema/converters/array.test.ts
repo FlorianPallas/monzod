@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { z } from "zod";
-import { array } from ".";
+import { convertArray } from ".";
 
 describe("zod array converter", () => {
   test("array", () => {
     const schema = z.array(z.string());
-    const bsonSchema = array(schema);
+    const bsonSchema = convertArray(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: { bsonType: "string" },
@@ -14,7 +14,7 @@ describe("zod array converter", () => {
 
   test("min length", () => {
     const schema = z.array(z.string()).min(1);
-    const bsonSchema = array(schema);
+    const bsonSchema = convertArray(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: { bsonType: "string" },
@@ -24,7 +24,7 @@ describe("zod array converter", () => {
 
   test("max length", () => {
     const schema = z.array(z.string()).max(1);
-    const bsonSchema = array(schema);
+    const bsonSchema = convertArray(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: { bsonType: "string" },
@@ -34,7 +34,7 @@ describe("zod array converter", () => {
 
   test("exact length", () => {
     const schema = z.array(z.string()).length(1);
-    const bsonSchema = array(schema);
+    const bsonSchema = convertArray(schema);
     expect(bsonSchema).toEqual({
       bsonType: "array",
       items: { bsonType: "string" },

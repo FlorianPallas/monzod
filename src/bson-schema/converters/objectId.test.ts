@@ -1,11 +1,11 @@
 import { describe, expect, test } from "vitest";
 import { mz } from "../..";
-import { objectId } from ".";
+import { convertObjectId } from ".";
 
 describe("zod objectId converter", () => {
   test("objectId", () => {
     const schema = mz.objectId();
-    const bsonSchema = objectId(schema);
+    const bsonSchema = convertObjectId(schema);
     expect(bsonSchema).toEqual({ bsonType: "objectId" });
   });
 });

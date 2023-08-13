@@ -10,7 +10,7 @@ export type NumberBSONSchema = {
   multipleOf?: number;
 };
 
-export const number: Converter<ZodNumber, NumberBSONSchema> = (type) => {
+export const convertNumber: Converter<ZodNumber, NumberBSONSchema> = (type) => {
   const schema: NumberBSONSchema = {
     bsonType: "double",
   };

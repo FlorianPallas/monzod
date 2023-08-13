@@ -122,13 +122,19 @@ const bookCollection = db.collection<Book>("books", {
 // Do this instead
 
 const bookCollection = db.collection<Book>("books", {
+  ignoreUndefined: true, // Turn off undefined to null conversion
   validator: { $jsonSchema: bsonSchema(bookSchema) }, // Let Monzod do the heavy lifting
 });
 ```
 
+Notice the `ignoreUndefined: true`. This tells MongoDB to only accept `null` for nullable fields.
+Otherwise the documents you retrieve from the database could contain `null` values even though your schema may use optional values (`undefined`), causing issues while parsing.
+
 #### Supported types
 
 ##### Zod
+
+###### Primitives
 
 - [x] String
 - [x] Number
@@ -136,6 +142,24 @@ const bookCollection = db.collection<Book>("books", {
 - [x] Boolean
 - [ ] Date
 - [ ] Symbol
+
+###### Empty Types
+
+- [ ] Undefined
+- [x] Null
+- [ ] Void
+
+###### Catch All Types
+
+- [ ] Any
+- [ ] Unknown
+
+###### Never Type
+
+- [ ] Never
+
+###### Complex Types
+
 - [x] Array
 - [x] Object
 - [ ] Union
@@ -147,6 +171,9 @@ const bookCollection = db.collection<Book>("books", {
 - [ ] Literal
 - [ ] Enum
 - [ ] NativeEnum
+
+###### Wrappers
+
 - [ ] Optional
   - [x] within objects
   - [ ] within arrays
@@ -154,7 +181,10 @@ const bookCollection = db.collection<Book>("books", {
   - [ ] within sets
   - [ ] within maps
   - [ ] within records
-- [ ] Nullable
+- [x] Nullable
+
+###### Structure
+
 - [ ] Recursive schemas
 - [ ] Cyclic schemas
 

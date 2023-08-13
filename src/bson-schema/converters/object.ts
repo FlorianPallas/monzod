@@ -1,6 +1,7 @@
-import { ZodObject, ZodRawShape } from "zod";
+import { ZodObject, ZodRawShape, ZodType } from "zod";
 import { BSONSchema, Converter } from ".";
-import { unwrap, UnwrapResult } from "../unwrap";
+import { unwrapOptional } from "../unwrap";
+import { bsonSchema } from "..";
 
 export type ObjectBSONSchema = {
   bsonType: "object";
@@ -9,7 +10,7 @@ export type ObjectBSONSchema = {
   properties?: Record<string, BSONSchema>;
 };
 
-export const object: Converter<ZodObject<ZodRawShape>, ObjectBSONSchema> = (
+export const convertObject: Converter<ZodObject<ZodRawShape>, ObjectBSONSchema> = (
   type
 ) => {
   const schema: ObjectBSONSchema = {
@@ -20,14 +21,15 @@ export const object: Converter<ZodObject<ZodRawShape>, ObjectBSONSchema> = (
   // To get wrapper type metadata, we need to unwrap the types
   const unwrappedProperties = Object.entries(type.shape).reduce(
     (acc, [key, value]) => {
-      acc[key] = unwrap(value);
+      acc[key] = unwrapOptional(value);
       return acc;
     },
-    {} as Record<string, UnwrapResult>
+    {} as Record<string, { type: ZodType; isOptional: boolean }>
   );
+
   schema.properties = Object.entries(unwrappedProperties).reduce(
     (acc, [name, unwrapResult]) => {
-      acc[name] = unwrapResult.schema;
+      acc[name] = bsonSchema(unwrapResult.type);
       return acc;
     },
     {} as Record<string, BSONSchema>
@@ -35,7 +37,7 @@ export const object: Converter<ZodObject<ZodRawShape>, ObjectBSONSchema> = (
 
   // From the wrapper metadata, we can find out which properties are required
   const required = Object.keys(unwrappedProperties).filter(
-    (name) => !unwrappedProperties[name]?.modifiers.isOptional
+    (name) => !unwrappedProperties[name]?.isOptional
   );
   if (required.length > 0) schema.required = required; // The required property requires at least one item.
 

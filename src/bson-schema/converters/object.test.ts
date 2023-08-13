@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { z } from "zod";
-import { object } from ".";
+import { convertObject } from ".";
 
 describe("zod object converter", () => {
   test("object", () => {
@@ -8,7 +8,7 @@ describe("zod object converter", () => {
       firstName: z.string(),
       lastName: z.string(),
     });
-    const bsonSchema = object(schema);
+    const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",
       required: ["firstName", "lastName"],
@@ -25,7 +25,7 @@ describe("zod object converter", () => {
       firstName: z.string(),
       lastName: z.string().optional(),
     });
-    const bsonSchema = object(schema);
+    const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",
       required: ["firstName"],
@@ -42,7 +42,7 @@ describe("zod object converter", () => {
       firstName: z.string(),
       lastName: z.string(),
     }).partial();
-    const bsonSchema = object(schema);
+    const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",
       properties: {
@@ -58,7 +58,7 @@ describe("zod object converter", () => {
       firstName: z.string(),
       lastName: z.string(),
     }).passthrough();
-    const bsonSchema = object(schema);
+    const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",
       required: ["firstName", "lastName"],

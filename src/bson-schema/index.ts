@@ -2,6 +2,8 @@ import {
   ZodArray,
   ZodBoolean,
   ZodFirstPartyTypeKind,
+  ZodNull,
+  ZodNullable,
   ZodNumber,
   ZodObject,
   ZodRawShape,
@@ -12,33 +14,52 @@ import {
   ZodTypeAny,
 } from "zod";
 import { MonzodObjectId, MonzodTypeKind, getKind } from "../types";
-import * as Converters from "./converters";
+import * as Converter from "./converters";
 
-export const bsonSchema = (type: ZodType): Converters.BSONSchema => {
+export const bsonSchema = (type: ZodType): Converter.BSONSchema => {
   const kind = getKind(type);
 
   switch (kind) {
+    // Wrappers
+    case ZodFirstPartyTypeKind.ZodNullable:
+      return Converter.convertNullable(type as ZodNullable<ZodType>);
+    case ZodFirstPartyTypeKind.ZodOptional:
+      throw new Error(
+        "Your schema uses optional types outside the object scope. This is currently not supported. Consider using nullable types instead."
+      );
+
+    // BSON
     case MonzodTypeKind.ObjectId:
-      return Converters.objectId(type as MonzodObjectId);
+      return Converter.convertObjectId(type as MonzodObjectId);
+
+    // Primitives
     case ZodFirstPartyTypeKind.ZodString:
-      return Converters.string(type as ZodString);
+      return Converter.convertString(type as ZodString);
     case ZodFirstPartyTypeKind.ZodNumber:
-      return Converters.number(type as ZodNumber);
+      return Converter.convertNumber(type as ZodNumber);
     case ZodFirstPartyTypeKind.ZodBoolean:
-      return Converters.bool(type as ZodBoolean);
+      return Converter.convertBool(type as ZodBoolean);
+
+    // Empty Types
+    case ZodFirstPartyTypeKind.ZodNull:
+      return Converter.convertNull(type as ZodNull);
+
+    // Catch All Types
+
+    // Never Type
+
+    // Complex Types
     case ZodFirstPartyTypeKind.ZodArray:
-      return Converters.array(type as ZodArray<ZodType>);
+      return Converter.convertArray(type as ZodArray<ZodType>);
+    case ZodFirstPartyTypeKind.ZodObject:
+      return Converter.convertObject(type as ZodObject<ZodRawShape>);
     case ZodFirstPartyTypeKind.ZodTuple:
-      return Converters.tuple(
+      return Converter.convertTuple(
         type as ZodTuple<[] | [ZodTypeAny, ...ZodTypeAny[]]>
       );
     case ZodFirstPartyTypeKind.ZodSet:
-      return Converters.set(type as ZodSet);
-    case ZodFirstPartyTypeKind.ZodObject:
-      return Converters.object(type as ZodObject<ZodRawShape>);
-    case ZodFirstPartyTypeKind.ZodOptional:
-    case ZodFirstPartyTypeKind.ZodNullable:
-      throw new Error(`Unexpected wrapper type "${kind}"`);
+      return Converter.convertSet(type as ZodSet);
+
     default:
       throw new Error(`Unsupported type "${kind}"`);
   }
