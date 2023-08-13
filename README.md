@@ -140,7 +140,7 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 - [x] Number
 - [ ] BigInt
 - [x] Boolean
-- [ ] Date
+- [x] Date
 - [ ] Symbol
 
 ###### Empty Types

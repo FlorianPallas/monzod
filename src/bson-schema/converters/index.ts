@@ -9,6 +9,7 @@ export { convertSet } from "./set";
 export { convertNullable, NullableBSONSchema } from "./nullable";
 export { convertNull, NullBSONSchema } from "./null";
 export { convertEnum, EnumBSONSchema } from "./enum";
+export { convertDate } from "./date";
 
 import { ArrayBSONSchema } from "./array";
 import { BoolBSONSchema } from "./bool";

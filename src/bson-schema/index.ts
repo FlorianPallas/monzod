@@ -1,6 +1,7 @@
 import {
   ZodArray,
   ZodBoolean,
+  ZodDate,
   ZodEnum,
   ZodFirstPartyTypeKind,
   ZodNull,
@@ -40,6 +41,8 @@ export const bsonSchema = (type: ZodType): Converter.BSONSchema => {
       return Converter.convertNumber(type as ZodNumber);
     case ZodFirstPartyTypeKind.ZodBoolean:
       return Converter.convertBool(type as ZodBoolean);
+    case ZodFirstPartyTypeKind.ZodDate:
+      return Converter.convertDate(type as ZodDate);
 
     // Empty Types
     case ZodFirstPartyTypeKind.ZodNull:
