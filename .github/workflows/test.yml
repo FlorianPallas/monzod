@@ -19,6 +19,9 @@ jobs:
       - run: pnpm run lint
       - run: pnpm run test -- --coverage
       - run: pnpm run test:e2e
+        env:
+          VITE_MONGODB_URI: ${{ secrets.VITE_MONGODB_URI }}
+          VITE_MONGODB_DATABASE: ${{ secrets.VITE_MONGODB_DATABASE }}
       - uses: codecov/codecov-action@v3
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
