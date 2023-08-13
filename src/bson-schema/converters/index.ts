@@ -13,6 +13,7 @@ export { convertDate } from "./date";
 
 import { ArrayBSONSchema } from "./array";
 import { BoolBSONSchema } from "./bool";
+import { DateBSONSchema } from "./date";
 import { EnumBSONSchema } from "./enum";
 import { NullBSONSchema } from "./null";
 import { NullableBSONSchema } from "./nullable";
@@ -30,6 +31,7 @@ export type BSONSchema =
   | ArrayBSONSchema
   | NullBSONSchema
   | NullableBSONSchema
-  | EnumBSONSchema;
+  | EnumBSONSchema
+  | DateBSONSchema;
 
 export type Converter<T, D> = (type: T) => D;

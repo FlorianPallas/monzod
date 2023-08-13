@@ -1,18 +1,12 @@
 import { describe, expect, test } from "vitest";
 import { z } from "zod";
 import { convertDate } from ".";
-import { dateTimeRegex } from "./date";
 
 describe("zod date converter", () => {
   test("date", () => {
     const schema = z.date();
     const bsonSchema = convertDate(schema);
-    expect(bsonSchema).toEqual({
-      bsonType: "string",
-      minLength: 24,
-      maxLength: 27,
-      pattern: dateTimeRegex.source,
-    });
+    expect(bsonSchema).toEqual({ bsonType: "date" });
   });
 
   test("throws for min check", () => {
