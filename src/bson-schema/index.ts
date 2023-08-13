@@ -25,7 +25,7 @@ export const bsonSchema = (type: ZodType): Converter.BSONSchema => {
       return Converter.convertNullable(type as ZodNullable<ZodType>);
     case ZodFirstPartyTypeKind.ZodOptional:
       throw new Error(
-        "Your schema uses optional types outside the object scope. This is currently not supported. Consider using nullable types instead."
+        "Your schema uses optional types outside the object scope. This is currently not supported. Consider using nullable types instead.",
       );
 
     // BSON
@@ -55,7 +55,7 @@ export const bsonSchema = (type: ZodType): Converter.BSONSchema => {
       return Converter.convertObject(type as ZodObject<ZodRawShape>);
     case ZodFirstPartyTypeKind.ZodTuple:
       return Converter.convertTuple(
-        type as ZodTuple<[] | [ZodTypeAny, ...ZodTypeAny[]]>
+        type as ZodTuple<[] | [ZodTypeAny, ...ZodTypeAny[]]>,
       );
     case ZodFirstPartyTypeKind.ZodSet:
       return Converter.convertSet(type as ZodSet);

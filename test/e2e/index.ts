@@ -8,7 +8,7 @@ export const database = mongo.db(process.env.VITE_MONGODB_DATABASE!);
 const testCollections: string[] = [];
 
 export const createTestCollection = async (
-  options?: CreateCollectionOptions
+  options?: CreateCollectionOptions,
 ) => {
   const uuid = uuidV4();
   const collection = await database.createCollection(uuid, options);
@@ -18,7 +18,7 @@ export const createTestCollection = async (
 
 afterAll(async () => {
   await Promise.all(
-    testCollections.map((name) => database.collection(name).drop())
+    testCollections.map((name) => database.collection(name).drop()),
   );
   await mongo.close();
 });

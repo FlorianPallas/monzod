@@ -5,6 +5,9 @@ export interface ObjectIdBSONSchema {
   bsonType: "objectId";
 }
 
-export const convertObjectId: Converter<MonzodObjectId, ObjectIdBSONSchema> = () => ({
+export const convertObjectId: Converter<
+  MonzodObjectId,
+  ObjectIdBSONSchema
+> = () => ({
   bsonType: "objectId",
 });

@@ -16,7 +16,7 @@ export const convertString: Converter<ZodString, StringBSONSchema> = (type) => {
   const applyRegex = (regex: RegExp) => {
     if (schema.pattern)
       throw new Error(
-        "Your schema requires multiple regex patterns to match zod functionality. This can happen if you use regex checks in addition to common checks like startsWith, endsWith or includes. If necessary, write a custom regex pattern that combines all of your requirements."
+        "Your schema requires multiple regex patterns to match zod functionality. This can happen if you use regex checks in addition to common checks like startsWith, endsWith or includes. If necessary, write a custom regex pattern that combines all of your requirements.",
       );
     schema.pattern = regex.source;
   };
@@ -62,7 +62,7 @@ export const convertString: Converter<ZodString, StringBSONSchema> = (type) => {
           datetimeRegex({
             precision: check.precision,
             offset: check.offset,
-          })
+          }),
         );
         break;
       case "ip":
@@ -98,7 +98,7 @@ export const convertString: Converter<ZodString, StringBSONSchema> = (type) => {
       case "toLowerCase":
       case "toUpperCase":
         throw new Error(
-          "Your schema uses string transformations like trim, toLowerCase or toUpperCase. These dynamically change the string and cannot be converted to a BSON schema. Please remove these checks from your schema. If necessary, apply these transformations in your application code."
+          "Your schema uses string transformations like trim, toLowerCase or toUpperCase. These dynamically change the string and cannot be converted to a BSON schema. Please remove these checks from your schema. If necessary, apply these transformations in your application code.",
         );
     }
   }
@@ -126,17 +126,17 @@ export const datetimeRegex = (args: {
   if (args.precision) {
     if (args.offset) {
       return new RegExp(
-        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{${args.precision}}(([+-]\\d{2}(:?\\d{2})?)|Z)$`
+        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{${args.precision}}(([+-]\\d{2}(:?\\d{2})?)|Z)$`,
       );
     } else {
       return new RegExp(
-        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{${args.precision}}Z$`
+        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{${args.precision}}Z$`,
       );
     }
   } else if (args.precision === 0) {
     if (args.offset) {
       return new RegExp(
-        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(([+-]\\d{2}(:?\\d{2})?)|Z)$`
+        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(([+-]\\d{2}(:?\\d{2})?)|Z)$`,
       );
     } else {
       return new RegExp(`^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z$`);
@@ -144,11 +144,11 @@ export const datetimeRegex = (args: {
   } else {
     if (args.offset) {
       return new RegExp(
-        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(([+-]\\d{2}(:?\\d{2})?)|Z)$`
+        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?(([+-]\\d{2}(:?\\d{2})?)|Z)$`,
       );
     } else {
       return new RegExp(
-        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$`
+        `^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d+)?Z$`,
       );
     }
   }

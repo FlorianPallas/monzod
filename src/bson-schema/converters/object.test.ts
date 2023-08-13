@@ -38,10 +38,12 @@ describe("zod object converter", () => {
   });
 
   test("partial", () => {
-    const schema = z.object({
-      firstName: z.string(),
-      lastName: z.string(),
-    }).partial();
+    const schema = z
+      .object({
+        firstName: z.string(),
+        lastName: z.string(),
+      })
+      .partial();
     const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",
@@ -54,10 +56,12 @@ describe("zod object converter", () => {
   });
 
   test("passthrough", () => {
-    const schema = z.object({
-      firstName: z.string(),
-      lastName: z.string(),
-    }).passthrough();
+    const schema = z
+      .object({
+        firstName: z.string(),
+        lastName: z.string(),
+      })
+      .passthrough();
     const bsonSchema = convertObject(schema);
     expect(bsonSchema).toEqual({
       bsonType: "object",

@@ -11,7 +11,7 @@ export type MonzodObjectId = MonzodType<
 export const objectId = (): MonzodObjectId =>
   addMetadata(
     custom<ObjectId>((val) => isBsonType(val, "ObjectId")),
-    { typeName: MonzodTypeKind.ObjectId }
+    { typeName: MonzodTypeKind.ObjectId },
   );
 
 export const objectIdString = () =>

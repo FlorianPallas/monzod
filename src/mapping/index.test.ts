@@ -1,14 +1,7 @@
 import { describe, test, expect } from "vitest";
 import { z } from "zod";
 import { ObjectId } from "mongodb";
-import {
-  mapEntity,
-  mapKey,
-  mapSchema,
-  mapShape,
-  mapType,
-  mapValue,
-} from ".";
+import { mapEntity, mapKey, mapSchema, mapShape, mapType, mapValue } from ".";
 import { objectId, objectIdString } from "../types";
 
 describe("key mapping", () => {
@@ -45,31 +38,31 @@ describe("value mapping", () => {
 describe("type mapping", () => {
   test("id should be mapped to string", () => {
     expect((mapType(objectId()) as any)._def.typeName).toBe(
-      z.string()._def.typeName
+      z.string()._def.typeName,
     );
   });
 
   test("other types should not be changed", () => {
     expect((mapType(z.string()) as any)._def.typeName).toBe(
-      z.string()._def.typeName
+      z.string()._def.typeName,
     );
     expect((mapType(z.number()) as any)._def.typeName).toBe(
-      z.number()._def.typeName
+      z.number()._def.typeName,
     );
     expect((mapType(z.boolean()) as any)._def.typeName).toBe(
-      z.boolean()._def.typeName
+      z.boolean()._def.typeName,
     );
     expect((mapType(z.null()) as any)._def.typeName).toBe(
-      z.null()._def.typeName
+      z.null()._def.typeName,
     );
     expect((mapType(z.undefined()) as any)._def.typeName).toBe(
-      z.undefined()._def.typeName
+      z.undefined()._def.typeName,
     );
     expect((mapType(z.object({})) as any)._def.typeName).toBe(
-      z.object({})._def.typeName
+      z.object({})._def.typeName,
     );
     expect((mapType(z.array(z.string())) as any)._def.typeName).toBe(
-      z.array(z.string())._def.typeName
+      z.array(z.string())._def.typeName,
     );
   });
 });
@@ -83,10 +76,10 @@ describe("shape mapping", () => {
     };
 
     expect((mapShape(shape) as any).id._def.typeName).toBe(
-      z.string()._def.typeName
+      z.string()._def.typeName,
     );
     expect((mapShape(shape) as any).groupId._def.typeName).toBe(
-      z.string()._def.typeName
+      z.string()._def.typeName,
     );
     expect(mapShape(shape).name).toBe(shape.name);
   });
@@ -114,13 +107,13 @@ describe("object mapping", () => {
     });
 
     expect(mapSchema(entity).shape.id._def.typeName).toEqual(
-      objectIdString()._def.typeName
+      objectIdString()._def.typeName,
     );
     expect(mapSchema(entity).shape.name._def.typeName).toEqual(
-      z.string()._def.typeName
+      z.string()._def.typeName,
     );
     expect(mapSchema(entity).shape.groupId._def.typeName).toEqual(
-      objectIdString()._def.typeName
+      objectIdString()._def.typeName,
     );
   });
 

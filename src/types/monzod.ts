@@ -25,7 +25,7 @@ export const getKind = (type: ZodType) =>
 
 export const addMetadata = <TMonzod extends object, TZod extends ZodType>(
   type: TZod,
-  definition: TMonzod
+  definition: TMonzod,
 ) =>
   ({
     ...type,

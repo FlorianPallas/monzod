@@ -11,7 +11,9 @@ export type ArrayBSONSchema = {
   uniqueItems?: boolean;
 };
 
-export const convertArray: Converter<ZodArray<ZodType>, ArrayBSONSchema> = (type) => ({
+export const convertArray: Converter<ZodArray<ZodType>, ArrayBSONSchema> = (
+  type,
+) => ({
   bsonType: "array",
   items: bsonSchema(type.element),
   minItems: type._def.exactLength?.value ?? type._def.minLength?.value,

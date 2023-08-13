@@ -4,7 +4,7 @@ export default defineConfig({
   test: {
     dir: "src",
     coverage: {
-      reporter: ['text', 'html', 'clover', 'json', 'lcov'],
-    }
+      reporter: ["text", "html", "clover", "json", "lcov"],
+    },
   },
 });

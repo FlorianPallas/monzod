@@ -4,7 +4,7 @@ import { convertNull } from ".";
 
 describe("zod null converter", () => {
   test("nullable", () => {
-    const schema = z.null()
+    const schema = z.null();
     const bsonSchema = convertNull(schema);
     expect(bsonSchema).toEqual({ bsonType: "null" });
   });

@@ -72,7 +72,7 @@ export const mapShape = <TShape extends z.ZodRawShape>(shape: TShape) => {
  * @returns the converted schema
  */
 export const mapSchema = <TShape extends ZodRawShape>(
-  object: z.ZodObject<TShape>
+  object: z.ZodObject<TShape>,
 ) => z.object(mapShape<TShape>(object.shape));
 
 /**

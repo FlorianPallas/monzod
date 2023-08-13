@@ -27,22 +27,22 @@ describe("objectId", () => {
 describe("objectIdString", () => {
   it("should parse hex formatted object ids", () => {
     expect(
-      objectIdString().safeParse(new ObjectId().toHexString()).success
+      objectIdString().safeParse(new ObjectId().toHexString()).success,
     ).toBeTruthy();
   });
 
   it("should fail parsing strings of invalid length", () => {
     expect(
-      objectIdString().safeParse("1234567890123456789012345").success
+      objectIdString().safeParse("1234567890123456789012345").success,
     ).toBeFalsy();
     expect(
-      objectIdString().safeParse("12345678901234567890123").success
+      objectIdString().safeParse("12345678901234567890123").success,
     ).toBeFalsy();
   });
 
   it("should fail parsing strings with uppercase letters", () => {
     expect(
-      objectIdString().safeParse("A2345678901234567890123").success
+      objectIdString().safeParse("A2345678901234567890123").success,
     ).toBeFalsy();
   });
 });
