@@ -6,7 +6,6 @@ export interface StringBSONSchema {
   minLength?: number;
   maxLength?: number;
   pattern?: string;
-  format?: string;
 }
 
 export const string: Converter<ZodString, StringBSONSchema> = (type) => {
