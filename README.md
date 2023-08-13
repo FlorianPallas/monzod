@@ -97,13 +97,16 @@ Monzod uses that existing functionality and provides a way to generate that sche
 > :warning: Schema conversion is limited to only a few types right now. See the section below for all supported types.
 
 ```ts
+import { bsonSchema } from "monzod";
+import { db } from "./db";
+
 // What MongoDB provides
 
 const bookCollection = db.collection<Book>("books", {
   validator: {
     $jsonSchema: {
       bsonType: "object",
-      required: ["_id", "title", "description", "author", "pageCount"],
+      required: ["_id", "title", "description", "author"],
       properties: {
         _id: { bsonType: "objectId" },
         title: { bsonType: "string" },
