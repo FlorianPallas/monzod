@@ -136,19 +136,27 @@ const bookCollection = db.collection<Book>("books", {
 - [x] Boolean
 - [ ] Date
 - [ ] Symbol
-- [ ] Array
+- [x] Array
 - [x] Object
 - [ ] Union
-- [ ] Tuple
+- [x] Tuple
 - [ ] Record
 - [ ] Map
-- [ ] Set
+- [x] Set
 - [ ] Function
 - [ ] Literal
 - [ ] Enum
 - [ ] NativeEnum
-- [x] Optional
+- [ ] Optional
+  - [x] within objects
+  - [ ] within arrays
+  - [ ] within tuples
+  - [ ] within sets
+  - [ ] within maps
+  - [ ] within records
 - [ ] Nullable
+- [ ] Recursive schemas
+- [ ] Cyclic schemas
 
 ##### BSON
 
