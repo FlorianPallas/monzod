@@ -8,8 +8,8 @@ import {
   mapShape,
   mapType,
   mapValue,
-} from "./convert";
-import { id, idString } from "./types";
+} from ".";
+import { objectId, objectIdString } from "../types";
 
 describe("key mapping", () => {
   test("_id should be mapped to id", () => {
@@ -44,7 +44,9 @@ describe("value mapping", () => {
 
 describe("type mapping", () => {
   test("id should be mapped to string", () => {
-    expect((mapType(id()) as any)._def.typeName).toBe(z.string()._def.typeName);
+    expect((mapType(objectId()) as any)._def.typeName).toBe(
+      z.string()._def.typeName
+    );
   });
 
   test("other types should not be changed", () => {
@@ -75,9 +77,9 @@ describe("type mapping", () => {
 describe("shape mapping", () => {
   test("_id should be mapped to id", () => {
     const shape = {
-      _id: id(),
+      _id: objectId(),
       name: z.string(),
-      groupId: id(),
+      groupId: objectId(),
     };
 
     expect((mapShape(shape) as any).id._def.typeName).toBe(
@@ -106,27 +108,27 @@ describe("shape mapping", () => {
 describe("object mapping", () => {
   test("should map", () => {
     const entity = z.object({
-      _id: id(),
+      _id: objectId(),
       name: z.string(),
-      groupId: id(),
+      groupId: objectId(),
     });
 
     expect(mapSchema(entity).shape.id._def.typeName).toEqual(
-      idString()._def.typeName
+      objectIdString()._def.typeName
     );
     expect(mapSchema(entity).shape.name._def.typeName).toEqual(
       z.string()._def.typeName
     );
     expect(mapSchema(entity).shape.groupId._def.typeName).toEqual(
-      idString()._def.typeName
+      objectIdString()._def.typeName
     );
   });
 
   test("should parse corresponding dto", () => {
     const entity = z.object({
-      _id: id(),
+      _id: objectId(),
       name: z.string(),
-      groupId: id(),
+      groupId: objectId(),
     });
 
     const dto = {
@@ -162,9 +164,9 @@ describe("entity mapping", () => {
     };
 
     const schema = z.object({
-      id: idString(),
+      id: objectIdString(),
       name: z.string(),
-      groupId: idString(),
+      groupId: objectIdString(),
     });
 
     expect(schema.parse(mapEntity(entity)));

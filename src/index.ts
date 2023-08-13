@@ -1,10 +1,8 @@
 import * as types from "./types";
 export * from "./types";
-
-import * as convert from "./convert";
-export * from "./convert";
+export * from "./mapping";
 
 export const mz = {
-  ...types,
-  ...convert,
+  objectId: types.objectId,
+  objectIdString: types.objectIdString,
 };

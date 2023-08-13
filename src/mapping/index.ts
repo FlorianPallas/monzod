@@ -1,9 +1,9 @@
-import { ZodFirstPartyTypeKind, ZodRawShape, z } from "zod";
+import { ZodRawShape, z } from "zod";
 import { ObjectId } from "mongodb";
-import { mz } from ".";
+import { objectId, objectIdString } from "../types/objectId";
+import { MonzodTypeKind, getMonzodKind } from "../types/monzod";
 
-const OBJECT_ID = new ObjectId();
-
+const objectIdType = objectId();
 type MapKey<TKey> = TKey extends "_id" ? "id" : TKey;
 
 export const mapKey = <TKey>(key: TKey) =>
@@ -13,28 +13,30 @@ type MapType<TSchema extends z.ZodType> = z.infer<TSchema> extends ObjectId
   ? z.ZodString
   : TSchema;
 
-export const mapType = <TSchema extends z.ZodType>(value: TSchema) =>
-  ("typeName" in value._def &&
-  value._def.typeName === ZodFirstPartyTypeKind.ZodEffects &&
-  value.safeParse(OBJECT_ID).success
-    ? mz.idString()
-    : value) as MapType<TSchema>;
+export const mapType = <TSchema extends z.ZodType>(type: TSchema) =>
+  (getMonzodKind(type) === MonzodTypeKind.ObjectId
+    ? objectIdString()
+    : type) as MapType<TSchema>;
 
 type MapValue<TValue> = TValue extends ObjectId ? string : TValue;
 
-export const mapValue = <TValue>(value: TValue) =>
-  (value instanceof ObjectId ? value.toHexString() : value) as MapValue<TValue>;
+export const mapValue = <TValue>(value: TValue) => {
+  const parsed = objectIdType.safeParse(value);
+  return (
+    parsed.success ? parsed.data.toHexString() : value
+  ) as MapValue<TValue>;
+};
 
 /**
  * Converts a zod shape to a new shape with the same keys, but with the following changes:
  * - The `_id` key gets renamed to `id`
- * - Any `mz.id()` type is replaced with `mz.idString()`
+ * - Any `mz.objectId()` type is replaced with `mz.objectIdString()`
  *
  * @example
  * {
- *   _id: mz.id(),      ->  id: mz.idString()
- *   name: z.string(),  ->  name: z.string()
- *   groupId: mz.id(),  ->  groupId: mz.idString()
+ *   _id: mz.objectId(),      ->  id: mz.objectIdString()
+ *   name: z.string(),        ->  name: z.string()
+ *   groupId: mz.objectId(),  ->  groupId: mz.objectIdString()
  * }
  *
  * @param shape the shape to convert
@@ -55,15 +57,15 @@ export const mapShape = <TShape extends z.ZodRawShape>(shape: TShape) => {
 /**
  * Converts a zod schema to a new schema with the same keys, but with the following changes:
  * - The `_id` key gets renamed to `id`
- * - Any `mz.id()` type is replaced with `mz.idString()`
+ * - Any `mz.objectId()` type is replaced with `mz.objectIdString()`
  *
  * This makes it easy to create DTO schemas from your mongodb entity schemas.
  *
  * @example
  * z.object({
- *   _id: mz.id(),      ->  id: mz.idString()
- *   name: z.string(),  ->  name: z.string()
- *   groupId: mz.id(),  ->  groupId: mz.idString()
+ *   _id: mz.objectId(),      ->  id: mz.objectIdString()
+ *   name: z.string(),        ->  name: z.string()
+ *   groupId: mz.objectId(),  ->  groupId: mz.objectIdString()
  * });
  *
  * @param object the schema to convert
