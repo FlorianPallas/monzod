@@ -133,7 +133,7 @@ const bookCollection = db.collection<Book>("books", {
 - [x] String
 - [x] Number
 - [ ] BigInt
-- [ ] Boolean
+- [x] Boolean
 - [ ] Date
 - [ ] Symbol
 - [ ] Array
