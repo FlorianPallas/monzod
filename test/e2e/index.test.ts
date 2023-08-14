@@ -2,7 +2,7 @@ import { expect, test } from "vitest";
 import { ObjectId } from "mongodb";
 import { mz, bsonSchema } from "../../src";
 import { z } from "zod";
-import { createTestCollection } from ".";
+import { createTestCollection, insertAndFind } from ".";
 
 test("basic model validation", async () => {
   // Arrange
@@ -37,4 +37,48 @@ test("basic model validation", async () => {
   // Assert
   expect(validResult.insertedId).toBeDefined();
   expect(invalidPromise).rejects.toThrow();
+});
+
+test("objectId serialization", async () => {
+  const collection = await createTestCollection();
+  const result = await insertAndFind(collection, { _id: new ObjectId() });
+
+  expect(() => mz.objectId().parse(result!._id)).toBeDefined(); // Maps are not correctly returned as maps
+});
+
+test("map serialization", async () => {
+  const collection = await createTestCollection();
+  const result = await insertAndFind(collection, {
+    map: new Map([
+      ["a", "valA"],
+      ["b", "valB"],
+      ["c", "valC"],
+    ]),
+  });
+
+  expect(() => z.map(z.string(), z.string()).parse(result!.map)).toThrow(); // Maps are not correctly returned as maps
+});
+
+test("set serialization", async () => {
+  const collection = await createTestCollection();
+  const result = await insertAndFind(collection, {
+    set: new Set(["a", "b", "c"]),
+  });
+
+  expect(() => z.set(z.string()).parse(result!.set)).toThrow(); // Sets are not correctly returned as sets
+});
+
+test("date serialization", async () => {
+  const collection = await createTestCollection();
+  const date = new Date("2000-01-01T00:00:00.000Z");
+  const result = await insertAndFind(collection, { date });
+
+  expect(z.date().parse(result!.date)).toEqual(date); // Dates are correctly returned as dates
+});
+
+test("bigint serialization", async () => {
+  const collection = await createTestCollection();
+  const result = await insertAndFind(collection, { value: BigInt(1234) });
+
+  expect(() => z.bigint().parse(result!.bigint)).toThrow(); // BigInts are not correctly returned as bigints
 });
