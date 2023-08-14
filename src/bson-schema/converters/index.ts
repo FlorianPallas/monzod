@@ -5,7 +5,6 @@ export { convertNumber, NumberBSONSchema } from "./number";
 export { convertBool, BoolBSONSchema } from "./bool";
 export { convertArray, ArrayBSONSchema } from "./array";
 export { convertTuple } from "./tuple";
-export { convertSet } from "./set";
 export { convertNullable, NullableBSONSchema } from "./nullable";
 export { convertNull, NullBSONSchema } from "./null";
 export { convertEnum, EnumBSONSchema } from "./enum";

@@ -138,7 +138,8 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 
 - [x] String
 - [x] Number
-- [ ] BigInt
+- [ ] ~~BigInt~~
+  - Serializes to `undefined` instead of `bigint`
 - [x] Boolean
 - [x] Date
 - [ ] Symbol
@@ -165,8 +166,10 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 - [ ] Union
 - [x] Tuple
 - [ ] Record
-- [ ] Map
-- [x] Set
+- [ ] ~~Map~~
+  - Serializes to `object` instead of `Map`
+- [ ] ~~Set~~
+  - Serializes to `object` instead of `Set`
 - [ ] Function
 - [ ] Literal
 - [x] Enum
@@ -178,8 +181,6 @@ Otherwise the documents you retrieve from the database could contain `null` valu
   - [x] within objects
   - [ ] within arrays
   - [ ] within tuples
-  - [ ] within sets
-  - [ ] within maps
   - [ ] within records
 - [x] Nullable
 

@@ -9,7 +9,6 @@ import {
   ZodNumber,
   ZodObject,
   ZodRawShape,
-  ZodSet,
   ZodString,
   ZodTuple,
   ZodType,
@@ -61,8 +60,6 @@ export const bsonSchema = (type: ZodType): Converter.BSONSchema => {
       return Converter.convertTuple(
         type as ZodTuple<[] | [ZodTypeAny, ...ZodTypeAny[]]>
       );
-    case ZodFirstPartyTypeKind.ZodSet:
-      return Converter.convertSet(type as ZodSet);
     case ZodFirstPartyTypeKind.ZodSet:
       return Converter.convertEnum(type as ZodEnum<[string, ...string[]]>);
 
