@@ -18,7 +18,7 @@ export const convertNumber: Converter<ZodNumber, NumberBSONSchema> = (type) => {
   for (const check of type._def.checks) {
     switch (check.kind) {
       case "int":
-        schema.bsonType = "int";
+        schema.bsonType = "long";
         break;
       case "min":
         schema.minimum = check.value;
