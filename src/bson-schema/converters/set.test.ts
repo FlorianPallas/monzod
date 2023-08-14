@@ -1,6 +1,6 @@
 import { describe, expect, test } from "vitest";
 import { z } from "zod";
-import { convertSet } from ".";
+import { convertSet } from "./set";
 
 describe("zod array converter", () => {
   test("set", () => {

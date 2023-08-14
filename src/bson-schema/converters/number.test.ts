@@ -6,7 +6,7 @@ describe("zod number converter", () => {
   test("int", () => {
     const schema = z.number().int();
     const bsonSchema = convertNumber(schema);
-    expect(bsonSchema.bsonType).toBe("int");
+    expect(bsonSchema.bsonType).toBe("long");
   });
 
   test("min", () => {
