@@ -137,40 +137,34 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 ###### Primitives
 
 - [x] String
+  - Does not support transformations like `.trim()`, `.lowercase()` or `.uppercase()`
+  - Does not support checks requiring two regex like `.email().startsWith("foo")`
 - [x] Number
 - [ ] ~~BigInt~~
   - Serializes to `undefined` instead of `bigint`
 - [x] Boolean
 - [x] Date
+  - Does not support date range checks like `.min()` or `.max()`
 - [ ] Symbol
 
 ###### Empty Types
 
-- [ ] Undefined
+- [ ] ~~Undefined~~
+  - Deprecated within the specification
+  - Use `null` instead
 - [x] Null
-- [ ] Void
-
-###### Catch All Types
-
-- [ ] Any
-- [ ] Unknown
-
-###### Never Type
-
-- [ ] Never
 
 ###### Complex Types
 
 - [x] Array
 - [x] Object
-- [ ] Union
+  - [ ] `.catchAll`
 - [x] Tuple
 - [ ] Record
 - [ ] ~~Map~~
   - Serializes to `object` instead of `Map`
 - [ ] ~~Set~~
   - Serializes to `object` instead of `Set`
-- [ ] Function
 - [ ] Literal
 - [x] Enum
 - [ ] NativeEnum
@@ -182,12 +176,16 @@ Otherwise the documents you retrieve from the database could contain `null` valu
   - [ ] within arrays
   - [ ] within tuples
   - [ ] within records
+  - Use `.nullable()` instead
 - [x] Nullable
 
-###### Structure
+###### Composition
 
-- [ ] Recursive schemas
-- [ ] Cyclic schemas
+- [ ] Union
+- [ ] Discriminate Union
+- [ ] Intersection
+- [ ] Any
+- [ ] Never
 
 ##### BSON
 
@@ -203,3 +201,8 @@ Otherwise the documents you retrieve from the database could contain `null` valu
 - [ ] Long
 - [ ] MaxKey
 - [ ] MinKey
+
+###### Structure
+
+- [ ] Recursive schemas
+- [ ] Cyclic schemas
