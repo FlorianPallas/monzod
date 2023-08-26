@@ -25,12 +25,12 @@ export const getKind = (type: ZodType) =>
 
 export const addMetadata = <TMonzod extends object, TZod extends ZodType>(
   type: TZod,
-  definition: TMonzod,
-) =>
-  ({
-    ...type,
-    _monzod: definition,
-  }) satisfies MonzodType<TZod, TMonzod>;
+  definition: TMonzod
+) => {
+  const t = type as MonzodType<TZod, TMonzod>;
+  t._monzod = definition;
+  return t;
+};
 
 export const getMetadata = <T extends ZodType>(type: T) =>
   "_monzod" in type && typeof type._monzod === "object" && type._monzod !== null
