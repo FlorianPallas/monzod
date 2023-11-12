@@ -1,30 +1,17 @@
 import { describe, expect, expectTypeOf, test } from "vitest";
 import { z } from "zod";
-import {
-  mapKey,
-  mapObject,
-  mapSchema,
-  mapType,
-  mapValue,
-  Mapping,
-  mapsTo,
-} from "./mapping";
-
-const mappedId = z.string();
-
-const id = mapsTo(z.number(), {
-  type: mappedId,
-  value: (value) => value.toString(),
-  key: "id",
-});
+import { mapKey, mapObject, mapSchema, mapType, mapValue } from "./mapping";
+import { objectId, objectIdString } from "./mapper";
 
 const user = z.object({
-  _id: id,
+  _id: objectId(),
   name: z.string(),
   age: z.number(),
 });
 
-// describe("type mapping", () => {});
+describe("type mapping", () => {
+  expect(mapType(objectId(), "mapped")).toStrictEqual(objectIdString());
+});
 
 // describe("value mapping", () => {});
 
